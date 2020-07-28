@@ -45,7 +45,11 @@ class FlightHistory: NSObject {
 
   public var timeDifference: Int {
     guard let actual = actualTime else { return 60 }
-    let diff = Calendar.current.dateComponents([.minute], from: scheduledTime, to: actual)
+    let diff = Calendar.current.dateComponents(
+      [.minute],
+      from: scheduledTime,
+      to: actual
+    )
     return diff.minute!
   }
 
@@ -83,7 +87,15 @@ class FlightHistory: NSObject {
     CGFloat(CGFloat(day - 1) * width)
   }
 
-  init(_ day: Int, id: Int, date: Date, direction: FlightDirection, status: FlightStatus, scheduledTime: Date, actualTime: Date?) {
+  init(
+    _ day: Int,
+    id: Int,
+    date: Date,
+    direction: FlightDirection,
+    status: FlightStatus,
+    scheduledTime: Date,
+    actualTime: Date?
+  ) {
     self.day = day
     flightId = id
     self.date = date
