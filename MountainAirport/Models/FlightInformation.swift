@@ -286,6 +286,8 @@ class FlightInformation: NSObject {
   }
 }
 
+extension FlightInformation: Identifiable {}
+
 extension Array where Element: FlightInformation {
   func arrivals() -> [FlightInformation] {
     filter { $0.direction == .arrival }

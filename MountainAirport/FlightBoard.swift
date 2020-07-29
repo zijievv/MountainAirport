@@ -37,7 +37,7 @@ struct FlightBoard: View {
       Text(boardName)
         .font(.title)
 
-      ForEach(flightData, id: \.id) { flight in
+      ForEach(flightData) { flight in
         Text("\(flight.airline) \(flight.number)")
       }
     }
