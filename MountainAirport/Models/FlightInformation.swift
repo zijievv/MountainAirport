@@ -143,6 +143,7 @@ class FlightInformation: NSObject {
       (flightStatus == "On Time" || flightStatus == "Delayed")
   }
 
+  /// Generates test data containing an array of thirty flights.
   static func generateFlights() -> [FlightInformation] {
     var flights = [FlightInformation]()
 
@@ -154,6 +155,7 @@ class FlightInformation: NSObject {
     return flights
   }
 
+  /// Generates test data for one flight.
   static func generateFlight() -> FlightInformation {
     generateFlight(Int.random(in: 1 ... 30))
   }
