@@ -34,19 +34,22 @@ struct FlightBoard: View {
 
   var body: some View {
     VStack {
-      Text(boardName)
-        .font(.title)
-
-      ForEach(flightData) { flight in
-        Text("\(flight.airline) \(flight.number)")
+      List(flightData) { flight in
+        VStack(alignment: .leading) {
+          Text("\(flight.airline) \(flight.number)")
+        }
       }
+//      .onAppear { UITableView.appearance().separatorStyle = .none }
     }
+    .navigationBarTitle(boardName)
   }
 }
 
 struct FlightBoard_Previews: PreviewProvider {
   static var previews: some View {
-    FlightBoard(boardName: "Test",
-                flightData: FlightInformation.generateFlights())
+    NavigationView {
+      FlightBoard(boardName: "Test",
+                  flightData: FlightInformation.generateFlights())
+    }
   }
 }
