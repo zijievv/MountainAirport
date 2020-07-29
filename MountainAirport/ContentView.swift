@@ -33,14 +33,14 @@ struct ContentView: View {
 
   var body: some View {
     TabView {
-      FlightBoard()
+      FlightBoard(boardName: "Arrivals")
         .tabItem {
           Image(systemName: "icloud.and.arrow.down")
             .resizable()
           Text("Arrivals")
         }
 
-      FlightBoard()
+      FlightBoard(boardName: "Departures")
         .tabItem {
           Image(systemName: "icloud.and.arrow.up")
             .resizable()
