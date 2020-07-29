@@ -31,17 +31,33 @@ import SwiftUI
 struct FlightBoard: View {
   var boardName: String
   var flightData: [FlightInformation]
+  @State private var hideCancelled = false
+
+  var shownFlights: [FlightInformation] {
+    hideCancelled ? flightData.filter { $0.status != .cancelled } : flightData
+  }
 
   var body: some View {
     VStack {
-      List(flightData) { flight in
+      List(shownFlights) { flight in
         NavigationLink(destination: FlightBoardInformation(flight: flight)) {
           FlightRow(flight: flight)
         }
       }
-//      .onAppear { UITableView.appearance().separatorStyle = .none }
     }
     .navigationBarTitle(boardName)
+    .navigationBarItems(
+      trailing: Button(action: { self.hideCancelled = !self.hideCancelled }) {
+        Text(hideCancelled ? "Show Cancelled" : "Hide Cancelled")
+          .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+          .background(Color.white)
+          .overlay(
+            RoundedRectangle(cornerRadius: 8)
+              .stroke(lineWidth: 2)
+              .foregroundColor(.blue)
+          )
+      }
+    )
   }
 }
 
