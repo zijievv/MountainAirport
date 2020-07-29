@@ -32,19 +32,20 @@ struct ContentView: View {
   var flightInfo: [FlightInformation] = FlightInformation.generateFlights()
 
   var body: some View {
-    NavigationView {
-      HStack {
-        ZStack {
-          Image(systemName: "airplane")
+    TabView {
+      FlightBoard()
+        .tabItem {
+          Image(systemName: "icloud.and.arrow.down")
             .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 250, height: 250, alignment: .center)
-            .opacity(0.1)
-            .rotationEffect(.degrees(-90))
-          Spacer()
+          Text("Arrivals")
         }
-      }
-      .navigationBarTitle(Text("Mountain Airport"))
+
+      FlightBoard()
+        .tabItem {
+          Image(systemName: "icloud.and.arrow.up")
+            .resizable()
+          Text("Departures")
+        }
     }
   }
 }
