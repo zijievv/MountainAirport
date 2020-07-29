@@ -36,17 +36,22 @@ struct ContentView: View {
       ZStack {
         Image(systemName: "airplane")
           .resizable()
-          .aspectRatio(contentMode: .fit)
-          .opacity(0.1)
           .rotationEffect(.degrees(-90))
-          .frame(width: 250, height: 250, alignment: .center)
+          .opacity(0.2)
+          .scaledToFit()
 
         VStack(alignment: .leading, spacing: 5) {
           NavigationLink(destination: FlightBoard(boardName: "Arrivals")) {
+            Image(systemName: "airplane")
+              .rotationEffect(.degrees(45))
+              .foregroundColor(.green)
             Text("Arrivals")
           }
 
           NavigationLink(destination: FlightBoard(boardName: "Departures")) {
+            Image(systemName: "airplane")
+              .rotationEffect(.degrees(-45))
+              .foregroundColor(.orange)
             Text("Departures")
           }
 
