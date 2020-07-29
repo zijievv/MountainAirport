@@ -31,6 +31,7 @@ import SwiftUI
 struct FlightBoardInformation: View {
   var flight: FlightInformation
   @Binding var showModal: Bool
+  @State private var rebookAlert: Bool = false
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -52,6 +53,22 @@ struct FlightBoardInformation: View {
         "\(flight.otherAirport)")
       Text(flight.flightStatus)
         .foregroundColor(flight.timelineColor)
+
+      if flight.isRebookAvailable() {
+        Button("Rebook Flight") {
+          self.rebookAlert = true
+        }
+        .alert(isPresented: self.$rebookAlert) {
+          Alert(
+            title: Text("Contact Your Airline"),
+            message: Text(
+              "We cannot rebook this flight.\n" +
+                "Please contact the airline to reschedule this flight."
+            )
+          )
+        }
+      }
+
       Spacer()
     }
     .font(.headline)
