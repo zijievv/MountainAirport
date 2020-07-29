@@ -49,12 +49,7 @@ struct FlightBoard: View {
     .navigationBarItems(
       trailing: Button(action: { self.hideCancelled = !self.hideCancelled }) {
         Text(hideCancelled ? "Show Cancelled" : "Hide Cancelled")
-          .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
-          .overlay(
-            RoundedRectangle(cornerRadius: 8)
-              .stroke(lineWidth: 3)
-              .foregroundColor(.blue)
-          )
+          .font(.callout)
       }
     )
   }

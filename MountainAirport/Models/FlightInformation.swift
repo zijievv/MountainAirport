@@ -95,20 +95,20 @@ class FlightInformation: NSObject {
     return diff.minute!
   }
 
-  public var timelineColor: UIColor {
+  public var timelineColor: Color {
     if status == .cancelled {
-      return UIColor(red: 0.5, green: 0, blue: 0, alpha: 1)
+      return .red
     }
 
     if timeDifference <= 0 {
-      return UIColor(red: 0.0, green: 0.6, blue: 0, alpha: 1)
+      return .green
     }
 
     if timeDifference <= 15 {
-      return UIColor.yellow
+      return .yellow
     }
 
-    return UIColor.red
+    return .purple
   }
 
   init(
