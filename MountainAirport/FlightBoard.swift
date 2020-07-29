@@ -30,15 +30,23 @@ import SwiftUI
 
 struct FlightBoard: View {
   var boardName: String
+  var flightData: [FlightInformation]
 
   var body: some View {
-    Text(boardName)
-      .font(.title)
+    VStack {
+      Text(boardName)
+        .font(.title)
+
+      ForEach(flightData, id: \.id) { flight in
+        Text("\(flight.airline) \(flight.number)")
+      }
+    }
   }
 }
 
 struct FlightBoard_Previews: PreviewProvider {
   static var previews: some View {
-    FlightBoard(boardName: "Test")
+    FlightBoard(boardName: "Test",
+                flightData: FlightInformation.generateFlights())
   }
 }

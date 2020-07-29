@@ -41,14 +41,20 @@ struct ContentView: View {
           .scaledToFit()
 
         VStack(alignment: .leading, spacing: 5) {
-          NavigationLink(destination: FlightBoard(boardName: "Arrivals")) {
+          NavigationLink(destination: FlightBoard(
+            boardName: "Arrivals",
+            flightData: self.flightInfo.arrivals()
+          )) {
             Image(systemName: "airplane")
               .rotationEffect(.degrees(45))
               .foregroundColor(.green)
             Text("Arrivals")
           }
 
-          NavigationLink(destination: FlightBoard(boardName: "Departures")) {
+          NavigationLink(destination: FlightBoard(
+            boardName: "Departures",
+            flightData: self.flightInfo.departures()
+          )) {
             Image(systemName: "airplane")
               .rotationEffect(.degrees(-45))
               .foregroundColor(.orange)
