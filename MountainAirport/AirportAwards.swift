@@ -39,6 +39,10 @@ struct AirportAwards: View {
         OverNightParkAward()
           .frame(width: 250, height: 250)
         Text("Left Car Overnight")
+
+        AirportMealAward()
+          .frame(width: 250, height: 250)
+        Text("Ate Meal at Airport")
       }
     }
     .navigationBarTitle("Your Awards")
@@ -48,5 +52,6 @@ struct AirportAwards: View {
 struct AirportAwards_Previews: PreviewProvider {
   static var previews: some View {
     AirportAwards()
+      .previewLayout(.sizeThatFits)
   }
 }
