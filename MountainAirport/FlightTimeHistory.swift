@@ -30,18 +30,35 @@ import SwiftUI
 
 struct FlightTimeHistory: View {
   var flight: FlightInformation
+  @Binding var showHistory: Bool
 
   var body: some View {
     VStack {
-      Text("On-Time History for \(flight.airline) Flight \(flight.number)")
-      List(flight.history, id: \.day) { h in
-        HStack {
-          Text("\(h.day) day ago - \(h.flightDelayDescription)")
-          Spacer()
+      HStack {
+        Spacer()
+        Button(action: {
+          self.showHistory = false
+        }) {
+          Text("Done")
+            .font(.headline)
         }
-        .background(h.delayColor.opacity(0.3))
       }
-      .frame(height: 400)
+      .padding(.bottom)
+
+      Group {
+        Text("On-Time History for \(flight.airline) Flight \(flight.number)")
+        List(flight.history, id: \.day) { h in
+          HStack {
+            Text("\(h.day) day ago - \(h.flightDelayDescription)")
+            Spacer()
+          }
+          .background(h.delayColor.opacity(0.3))
+        }
+        .frame(height: 400)
+      }
+      .padding(.top)
+
+      Spacer()
     }
     .padding()
   }
@@ -49,6 +66,7 @@ struct FlightTimeHistory: View {
 
 struct FlightTimeHistory_Previews: PreviewProvider {
   static var previews: some View {
-    FlightTimeHistory(flight: FlightInformation.generateFlight())
+    FlightTimeHistory(flight: FlightInformation.generateFlight(),
+                      showHistory: .constant(true))
   }
 }

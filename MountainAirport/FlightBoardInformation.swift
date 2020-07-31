@@ -39,6 +39,7 @@ struct FlightBoardInformation: View {
   @Binding var showModal: Bool
   @State private var rebookAlert: Bool = false
   @State private var checkInFlight: CheckInInfo?
+  @State private var showFlightHistory = false
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -46,6 +47,15 @@ struct FlightBoardInformation: View {
       flightInfo
       if flight.isRebookAvailable() { rebookButton }
       if flight.isCheckInAvailable() { checkInButton }
+
+      Button("On-Time History") {
+        self.showFlightHistory.toggle()
+      }
+      .popover(isPresented: $showFlightHistory, arrowEdge: .top) {
+        FlightTimeHistory(flight: self.flight,
+                          showHistory: self.$showFlightHistory)
+      }
+
       Spacer()
     }
     .font(.headline)
