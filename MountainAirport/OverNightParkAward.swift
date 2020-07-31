@@ -1,4 +1,4 @@
-/// Copyright (c) 2019 Razeware LLC
+/// Copyright (c) 2020 Razeware LLC
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,25 +28,51 @@
 
 import SwiftUI
 
-struct AirportAwards: View {
+struct OverNightParkAward: View {
   var body: some View {
-    VStack {
-      ScrollView {
-        FirstVisitAward()
-          .frame(width: 250, height: 250)
-        Text("First Visit")
+    GeometryReader { geometry in
+      Path { path in
+        let size = min(geometry.size.width, geometry.size.height)
+        let nearLine = size * 0.1
+        let farLine = size * 0.9
 
-        OverNightParkAward()
-          .frame(width: 250, height: 250)
-        Text("Left Car Overnight")
+        path.move(to: CGPoint(x: size / 2 + nearLine, y: nearLine))
+        path.addLine(to: .init(x: farLine, y: farLine))
+        path.addLine(to: .init(x: nearLine, y: farLine))
+        path.addLine(to: .init(x: size / 2 - nearLine, y: nearLine))
       }
+      .fill(Color(red: 0.4, green: 0.4, blue: 0.4))
+
+      Path { path in
+        let size = min(geometry.size.width, geometry.size.height)
+        let nearLine = size * 0.1
+        let farLine = size * 0.9
+        let middle = size / 2
+
+        path.move(to: .init(x: middle, y: farLine))
+        path.addLine(to: .init(x: middle, y: nearLine))
+      }
+      .stroke(
+        Color.white,
+        style: .init(
+          lineWidth: 3.0,
+          dash: [geometry.size.height / 20, geometry.size.height / 30],
+          dashPhase: 0
+        )
+      )
+
+      Image(systemName: "car.fill")
+        .resizable()
+        .foregroundColor(.white)
+        .scaleEffect(0.20)
+        .offset(x: -geometry.size.width / 7.25)
     }
-    .navigationBarTitle("Your Awards")
   }
 }
 
-struct AirportAwards_Previews: PreviewProvider {
+struct OverNightParkAward_Previews: PreviewProvider {
   static var previews: some View {
-    AirportAwards()
+    OverNightParkAward()
+      .frame(width: 200, height: 200)
   }
 }
