@@ -42,63 +42,10 @@ struct FlightBoardInformation: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      HStack {
-        Spacer()
-        Button("Done") {
-          self.showModal = false
-        }
-      }
-
-      HStack {
-        Text("\(flight.airline) Flight \(flight.number)")
-          .font(.largeTitle)
-        Spacer()
-      }
-      .padding(.vertical)
-
-      Text("\(flight.direction == .arrival ? "From: " : "To: ")" +
-        "\(flight.otherAirport)")
-      Text(flight.flightStatus)
-        .foregroundColor(flight.timelineColor)
-
-      if flight.isRebookAvailable() {
-        Button("Rebook Flight") {
-          self.rebookAlert = true
-        }
-        .alert(isPresented: self.$rebookAlert) {
-          Alert(
-            title: Text("Contact Your Airline"),
-            message: Text(
-              "We cannot rebook this flight.\n" +
-                "Please contact the airline to reschedule this flight."
-            )
-          )
-        }
-      }
-
-      if flight.isCheckInAvailable() {
-        Button("Check In for Flight") {
-          self.checkInFlight = CheckInInfo(airline: self.flight.airline,
-                                           flight: self.flight.number)
-        }
-        .actionSheet(item: $checkInFlight) { flight in
-          ActionSheet(
-            title: Text("Check In"),
-            message: Text("Check in for \(flight.airline) "
-              + "Flight \(flight.flight)"),
-            buttons: [
-              .cancel(Text("Not Now")),
-              .destructive(Text("Reschedule"), action: {
-                print("Reschedule flight.")
-              }),
-              .default(Text("Check In"), action: {
-                print("Check-in for \(flight.airline) \(flight.flight)")
-              }),
-            ]
-          )
-        }
-      }
-
+      doneButton
+      flightInfo
+      if flight.isRebookAvailable() { rebookButton }
+      if flight.isCheckInAvailable() { checkInButton }
       Spacer()
     }
     .font(.headline)
@@ -112,5 +59,70 @@ struct FlightBoardInformation_Previews: PreviewProvider {
   static var previews: some View {
     FlightBoardInformation(flight: FlightInformation.generateFlight(),
                            showModal: self.$showModal)
+  }
+}
+
+extension FlightBoardInformation {
+  var doneButton: some View {
+    HStack {
+      Spacer()
+      Button("Done") {
+        self.showModal = false
+      }
+    }
+  }
+
+  var flightInfo: some View {
+    Group {
+      HStack {
+        Text("\(flight.airline) Flight \(flight.number)")
+          .font(.largeTitle)
+        Spacer()
+      }
+      .padding(.vertical)
+
+      Text("\(flight.direction == .arrival ? "From: " : "To: ")" +
+        "\(flight.otherAirport)")
+      Text(flight.flightStatus)
+        .foregroundColor(flight.timelineColor)
+    }
+  }
+
+  var rebookButton: some View {
+    Button("Rebook Flight") {
+      self.rebookAlert = true
+    }
+    .alert(isPresented: self.$rebookAlert) {
+      Alert(
+        title: Text("Contact Your Airline"),
+        message: Text(
+          "We cannot rebook this flight.\n" +
+            "Please contact the airline to reschedule this flight."
+        )
+      )
+    }
+  }
+
+  var checkInButton: some View {
+    Button("Check In for Flight") {
+      self.checkInFlight = CheckInInfo(airline: self.flight.airline,
+                                       flight: self.flight.number)
+    }
+    .actionSheet(item: $checkInFlight) { flight in
+      ActionSheet(
+        title: Text("Check In"),
+        message: Text("Check in for \(flight.airline) "
+          + "Flight \(flight.flight)"),
+        buttons: [
+          .cancel(Text("Not Now")),
+          .destructive(Text("Reschedule"), action: {
+            print("Reschedule flight.")
+          }),
+          .default(Text("Check In"), action: {
+            print("Check-in for \(flight.airline) \(flight.flight)")
+          }),
+        ]
+      )
+    }
   }
 }
