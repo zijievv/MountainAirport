@@ -40,6 +40,7 @@ struct FlightBoardInformation: View {
   @State private var rebookAlert: Bool = false
   @State private var checkInFlight: CheckInInfo?
   @State private var showFlightHistory = false
+  @State private var showDetails: Bool = false
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -48,6 +49,18 @@ struct FlightBoardInformation: View {
       if flight.isRebookAvailable() { rebookButton }
       if flight.isCheckInAvailable() { checkInButton }
       onTimeHistoryButton
+
+      Button(action: {
+        self.showDetails.toggle()
+      }) {
+        HStack {
+          Text(showDetails ? "Hide Details" : "Show Details")
+          Spacer()
+          Image(systemName: "chevron.up.square")
+            .rotationEffect(.degrees(showDetails ? 0 : 180))
+            .animation(.default)
+        }
+      }
 
       Spacer()
     }
@@ -128,7 +141,7 @@ extension FlightBoardInformation {
       )
     }
   }
-  
+
   var onTimeHistoryButton: some View {
     Button("On-Time History") {
       self.showFlightHistory.toggle()
