@@ -48,30 +48,14 @@ struct FlightBoardInformation: View {
 
       List {
         flightInfo
-
         Divider()
 
         Group {
           if flight.isRebookAvailable() { rebookButton }
           if flight.isCheckInAvailable() { checkInButton }
           onTimeHistoryButton
-
           Divider()
-
-          VStack(alignment: .leading) {
-            Button(action: {
-              self.showDetails.toggle()
-            }) {
-              HStack {
-                Text(showDetails ? "Hide Details" : "Show Details")
-                Spacer()
-                Image(systemName: "chevron.up.square")
-                  .scaleEffect(showDetails ? 1.5 : 1)
-                  .rotationEffect(.degrees(showDetails ? 0 : 180))
-                  .animation(.easeInOut)
-              }
-            }
-          }
+          showDetailsButton
         }
         .foregroundColor(.blue)
 
@@ -167,6 +151,21 @@ extension FlightBoardInformation {
     .popover(isPresented: $showFlightHistory, arrowEdge: .top) {
       FlightTimeHistory(flight: self.flight,
                         showHistory: self.$showFlightHistory)
+    }
+  }
+
+  var showDetailsButton: some View {
+    Button(action: {
+      self.showDetails.toggle()
+    }) {
+      HStack {
+        Text(showDetails ? "Hide Details" : "Show Details")
+        Spacer()
+        Image(systemName: "chevron.up.square")
+          .scaleEffect(showDetails ? 1.5 : 1)
+          .rotationEffect(.degrees(showDetails ? 0 : 180))
+          .animation(.easeInOut)
+      }
     }
   }
 }
