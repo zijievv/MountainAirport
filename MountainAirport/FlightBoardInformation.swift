@@ -44,25 +44,43 @@ struct FlightBoardInformation: View {
 
   var body: some View {
     VStack(alignment: .leading) {
-      doneButton
-      flightInfo
-      if flight.isRebookAvailable() { rebookButton }
-      if flight.isCheckInAvailable() { checkInButton }
-      onTimeHistoryButton
+      doneButton.foregroundColor(.blue)
 
-      Button(action: {
-        self.showDetails.toggle()
-      }) {
-        HStack {
-          Text(showDetails ? "Hide Details" : "Show Details")
-          Spacer()
-          Image(systemName: "chevron.up.square")
-            .rotationEffect(.degrees(showDetails ? 0 : 180))
-            .animation(.default)
+      List {
+        flightInfo
+
+        Divider()
+
+        Group {
+          if flight.isRebookAvailable() { rebookButton }
+          if flight.isCheckInAvailable() { checkInButton }
+          onTimeHistoryButton
+
+          Divider()
+
+          VStack(alignment: .leading) {
+            Button(action: {
+              self.showDetails.toggle()
+            }) {
+              HStack {
+                Text(showDetails ? "Hide Details" : "Show Details")
+                Spacer()
+                Image(systemName: "chevron.up.square")
+                  .scaleEffect(showDetails ? 1.5 : 1)
+                  .rotationEffect(.degrees(showDetails ? 0 : 180))
+                  .animation(.easeInOut)
+              }
+            }
+          }
         }
-      }
+        .foregroundColor(.blue)
 
-      Spacer()
+        FlightDetails(flight: flight)
+          .offset(x: showDetails ? 0 : -UIScreen.main.bounds.width)
+          .animation(Animation.spring().delay(0.1).speed(1.5))
+      }
+      .environment(\.defaultMinListRowHeight, 0)
+      .onAppear { UITableView.appearance().separatorStyle = .none }
     }
     .font(.headline)
     .padding()
