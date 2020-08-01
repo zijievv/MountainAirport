@@ -47,14 +47,7 @@ struct FlightBoardInformation: View {
       flightInfo
       if flight.isRebookAvailable() { rebookButton }
       if flight.isCheckInAvailable() { checkInButton }
-
-      Button("On-Time History") {
-        self.showFlightHistory.toggle()
-      }
-      .popover(isPresented: $showFlightHistory, arrowEdge: .top) {
-        FlightTimeHistory(flight: self.flight,
-                          showHistory: self.$showFlightHistory)
-      }
+      onTimeHistoryButton
 
       Spacer()
     }
@@ -133,6 +126,16 @@ extension FlightBoardInformation {
           }),
         ]
       )
+    }
+  }
+  
+  var onTimeHistoryButton: some View {
+    Button("On-Time History") {
+      self.showFlightHistory.toggle()
+    }
+    .popover(isPresented: $showFlightHistory, arrowEdge: .top) {
+      FlightTimeHistory(flight: self.flight,
+                        showHistory: self.$showFlightHistory)
     }
   }
 }
