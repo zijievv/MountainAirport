@@ -61,6 +61,19 @@ struct ContentView: View {
             Text("Departures")
           }
 
+          NavigationLink(destination: AirportAwards()) {
+            Image(systemName: "checkmark.seal.fill")
+              .foregroundColor(.pink)
+            Text("Awards")
+          }
+
+          NavigationLink(destination: FlightTimeline(flights: self
+              .flightInfo)) {
+            Image(systemName: "list.bullet")
+              .foregroundColor(.purple)
+            Text("Flight Timeline")
+          }
+
           Spacer()
         }
         .font(.title)
