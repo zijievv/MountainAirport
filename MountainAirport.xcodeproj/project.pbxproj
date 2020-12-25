@@ -19,6 +19,7 @@
 		78999A7724D41C36001509BC /* FirstVisitAward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78999A7624D41C36001509BC /* FirstVisitAward.swift */; };
 		78999A7924D41DA9001509BC /* OverNightParkAward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78999A7824D41DA9001509BC /* OverNightParkAward.swift */; };
 		78999A7B24D422CA001509BC /* AirportMealAward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78999A7A24D422CA001509BC /* AirportMealAward.swift */; };
+		78C566192596384D00228738 /* MountainAirportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C566182596384D00228738 /* MountainAirportTests.swift */; };
 		78CBAA1824D53FB20001AEE3 /* FlightDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CBAA1724D53FB20001AEE3 /* FlightDetails.swift */; };
 		78FA07BF24D68B3F00F40CD3 /* TimelineTableViewCell in Frameworks */ = {isa = PBXBuildFile; productRef = 78FA07BE24D68B3F00F40CD3 /* TimelineTableViewCell */; };
 		78FA080524D68FE100F40CD3 /* FlightTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78FA080424D68FE100F40CD3 /* FlightTimeline.swift */; };
@@ -31,6 +32,16 @@
 		E6C531532327123600BA40DF /* FlightBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C531522327123600BA40DF /* FlightBoard.swift */; };
 		E6EC6D4722D6AE0A006EC6C2 /* FlightInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EC6D4622D6AE0A006EC6C2 /* FlightInformation.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		78C5661B2596384D00228738 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18D775B522AD944300AE281E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18D775BC22AD944300AE281E;
+			remoteInfo = MountainAirport;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		18D775BD22AD944300AE281E /* MountainAirport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MountainAirport.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +58,9 @@
 		78999A7624D41C36001509BC /* FirstVisitAward.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstVisitAward.swift; sourceTree = "<group>"; };
 		78999A7824D41DA9001509BC /* OverNightParkAward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverNightParkAward.swift; sourceTree = "<group>"; };
 		78999A7A24D422CA001509BC /* AirportMealAward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportMealAward.swift; sourceTree = "<group>"; };
+		78C566162596384D00228738 /* MountainAirportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MountainAirportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		78C566182596384D00228738 /* MountainAirportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MountainAirportTests.swift; sourceTree = "<group>"; };
+		78C5661A2596384D00228738 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78CBAA1724D53FB20001AEE3 /* FlightDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightDetails.swift; sourceTree = "<group>"; };
 		78FA080424D68FE100F40CD3 /* FlightTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightTimeline.swift; sourceTree = "<group>"; };
 		78FA080624D6E40E00F40CD3 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
@@ -69,6 +83,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		78C566132596384D00228738 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -76,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				18D775BF22AD944300AE281E /* MountainAirport */,
+				78C566172596384D00228738 /* MountainAirportTests */,
 				18D775BE22AD944300AE281E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				18D775BD22AD944300AE281E /* MountainAirport.app */,
+				78C566162596384D00228738 /* MountainAirportTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +156,15 @@
 			path = Awards;
 			sourceTree = "<group>";
 		};
+		78C566172596384D00228738 /* MountainAirportTests */ = {
+			isa = PBXGroup;
+			children = (
+				78C566182596384D00228738 /* MountainAirportTests.swift */,
+				78C5661A2596384D00228738 /* Info.plist */,
+			);
+			path = MountainAirportTests;
+			sourceTree = "<group>";
+		};
 		E6E2AE7B22D8D08600A3455A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,18 +198,40 @@
 			productReference = 18D775BD22AD944300AE281E /* MountainAirport.app */;
 			productType = "com.apple.product-type.application";
 		};
+		78C566152596384D00228738 /* MountainAirportTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78C5661F2596384D00228738 /* Build configuration list for PBXNativeTarget "MountainAirportTests" */;
+			buildPhases = (
+				78C566122596384D00228738 /* Sources */,
+				78C566132596384D00228738 /* Frameworks */,
+				78C566142596384D00228738 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				78C5661C2596384D00228738 /* PBXTargetDependency */,
+			);
+			name = MountainAirportTests;
+			productName = MountainAirportTests;
+			productReference = 78C566162596384D00228738 /* MountainAirportTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		18D775B522AD944300AE281E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Ray Wenderlich";
 				TargetAttributes = {
 					18D775BC22AD944300AE281E = {
 						CreatedOnToolsVersion = 11.0;
+					};
+					78C566152596384D00228738 = {
+						CreatedOnToolsVersion = 12.3;
+						TestTargetID = 18D775BC22AD944300AE281E;
 					};
 				};
 			};
@@ -198,6 +252,7 @@
 			projectRoot = "";
 			targets = (
 				18D775BC22AD944300AE281E /* MountainAirport */,
+				78C566152596384D00228738 /* MountainAirportTests */,
 			);
 		};
 /* End PBXProject section */
@@ -210,6 +265,13 @@
 				18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */,
 				18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */,
 				18D775C722AD944400AE281E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78C566142596384D00228738 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +304,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		78C566122596384D00228738 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78C566192596384D00228738 /* MountainAirportTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		78C5661C2596384D00228738 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18D775BC22AD944300AE281E /* MountainAirport */;
+			targetProxy = 78C5661B2596384D00228738 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		18D775DA22AD963800AE281E /* LaunchScreen.storyboard */ = {
@@ -418,6 +496,50 @@
 			};
 			name = Release;
 		};
+		78C5661D2596384D00228738 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55R9TVKX59;
+				INFOPLIST_FILE = MountainAirportTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijievv.MountainAirportTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MountainAirport.app/MountainAirport";
+			};
+			name = Debug;
+		};
+		78C5661E2596384D00228738 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 55R9TVKX59;
+				INFOPLIST_FILE = MountainAirportTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijievv.MountainAirportTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MountainAirport.app/MountainAirport";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -435,6 +557,15 @@
 			buildConfigurations = (
 				18D775D222AD944400AE281E /* Debug */,
 				18D775D322AD944400AE281E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		78C5661F2596384D00228738 /* Build configuration list for PBXNativeTarget "MountainAirportTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78C5661D2596384D00228738 /* Debug */,
+				78C5661E2596384D00228738 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
