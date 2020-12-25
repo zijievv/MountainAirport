@@ -29,81 +29,81 @@
 import SwiftUI
 
 struct AirportAwards: View {
-  var body: some View {
-    VStack {
-      Text("Your Awards (\(activeAwards.count))")
-        .font(.title)
-      GridView(columns: 2, items: activeAwards) { item in
+    var body: some View {
         VStack {
-          item.awardView
-          Text(item.title)
-        }.padding(5)
-      }
+            Text("Your Awards (\(activeAwards.count))")
+                .font(.title)
+            GridView(columns: 2, items: activeAwards) { item in
+                VStack {
+                    item.awardView
+                    Text(item.title)
+                }.padding(5)
+            }
+        }
     }
-  }
 }
 
 struct AirportAwards_Previews: PreviewProvider {
-  static var previews: some View {
-    AirportAwards()
-      .previewLayout(.sizeThatFits)
-  }
+    static var previews: some View {
+        AirportAwards()
+            .previewLayout(.sizeThatFits)
+    }
 }
 
 extension AirportAwards {
-  var awardArray: [AwardInformation] {
-    var awardList: [AwardInformation] = []
-    awardList.append(AwardInformation(
-      awardView: AnyView(FirstVisitAward()),
-      title: "First Visit",
-      description:
-      "Awarded the first time you open the app while at the airport.",
-      awarded: true
-    ))
-    awardList.append(AwardInformation(
-      awardView: AnyView(OverNightParkAward()),
-      title: "Left Car Overnight",
-      description:
-      "You left you car parked overnight in one of our parking lots.",
-      awarded: true
-    ))
-    awardList.append(AwardInformation(
-      awardView: AnyView(AirportMealAward()),
-      title: "Meal at Airport",
-      description:
-      "You used the app to receive a discount at one of our restaurants.",
-      awarded: true
-    ))
-    awardList.append(AwardInformation(
-      awardView: AnyView(FirstFlightAward()),
-      title: "First Flight",
-      description:
-      "You checked in for a flight using the app for the first time.",
-      awarded: true
-    ))
-    awardList.append(AwardInformation(
-      awardView: AnyView(HypocycloidView(R: 4.0, r: 2.0, color: Color.purple)),
-      title: "Almost Duty Free",
-      description:
-      "You used the app to receive a discount at one of our vendors.",
-      awarded: true
-    ))
-    awardList.append(AwardInformation(
-      awardView: AnyView(HypocycloidView(R: 8.0, r: 3.0, color: Color.blue)),
-      title: "Rainy Day",
-      description: "You flight was delayed because of weather.",
-      awarded: true
-    ))
-    awardList.append(AwardInformation(
-      awardView: AnyView(HypocycloidView(R: 16.0, r: 5.0, color: Color.yellow)),
-      title: "Welcome Home",
-      description: "Your returned to the airport after leaving from it.",
-      awarded: true
-    ))
-    return awardList
-  }
+    var awardArray: [AwardInformation] {
+        var awardList: [AwardInformation] = []
+        awardList.append(AwardInformation(
+            awardView: AnyView(FirstVisitAward()),
+            title: "First Visit",
+            description:
+            "Awarded the first time you open the app while at the airport.",
+            awarded: true
+        ))
+        awardList.append(AwardInformation(
+            awardView: AnyView(OverNightParkAward()),
+            title: "Left Car Overnight",
+            description:
+            "You left you car parked overnight in one of our parking lots.",
+            awarded: true
+        ))
+        awardList.append(AwardInformation(
+            awardView: AnyView(AirportMealAward()),
+            title: "Meal at Airport",
+            description:
+            "You used the app to receive a discount at one of our restaurants.",
+            awarded: true
+        ))
+        awardList.append(AwardInformation(
+            awardView: AnyView(FirstFlightAward()),
+            title: "First Flight",
+            description:
+            "You checked in for a flight using the app for the first time.",
+            awarded: true
+        ))
+        awardList.append(AwardInformation(
+            awardView: AnyView(HypocycloidView(R: 4.0, r: 2.0, color: Color.purple)),
+            title: "Almost Duty Free",
+            description:
+            "You used the app to receive a discount at one of our vendors.",
+            awarded: true
+        ))
+        awardList.append(AwardInformation(
+            awardView: AnyView(HypocycloidView(R: 8.0, r: 3.0, color: Color.blue)),
+            title: "Rainy Day",
+            description: "You flight was delayed because of weather.",
+            awarded: true
+        ))
+        awardList.append(AwardInformation(
+            awardView: AnyView(HypocycloidView(R: 16.0, r: 5.0, color: Color.yellow)),
+            title: "Welcome Home",
+            description: "Your returned to the airport after leaving from it.",
+            awarded: true
+        ))
+        return awardList
+    }
 
-  var activeAwards: [AwardInformation] {
-    awardArray.filter { $0.awarded }
-  }
+    var activeAwards: [AwardInformation] {
+        awardArray.filter { $0.awarded }
+    }
 }

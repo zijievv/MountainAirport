@@ -29,63 +29,63 @@
 import SwiftUI
 
 struct ContentView: View {
-  var flightInfo: [FlightInformation] = FlightInformation.generateFlights()
+    var flightInfo: [FlightInformation] = FlightInformation.generateFlights()
 
-  var body: some View {
-    NavigationView {
-      ZStack {
-        Image(systemName: "airplane")
-          .resizable()
-          .rotationEffect(.degrees(-90))
-          .opacity(0.2)
-          .scaledToFit()
+    var body: some View {
+        NavigationView {
+            ZStack {
+                Image(systemName: "airplane")
+                    .resizable()
+                    .rotationEffect(.degrees(-90))
+                    .opacity(0.2)
+                    .scaledToFit()
 
-        VStack(alignment: .leading, spacing: 5) {
-          NavigationLink(destination: FlightBoard(
-            boardName: "Arrivals",
-            flightData: self.flightInfo.arrivals()
-          )) {
-            Image(systemName: "airplane")
-              .rotationEffect(.degrees(45))
-              .foregroundColor(.green)
-            Text("Arrivals")
-          }
+                VStack(alignment: .leading, spacing: 5) {
+                    NavigationLink(destination: FlightBoard(
+                        boardName: "Arrivals",
+                        flightData: self.flightInfo.arrivals()
+                    )) {
+                        Image(systemName: "airplane")
+                            .rotationEffect(.degrees(45))
+                            .foregroundColor(.green)
+                        Text("Arrivals")
+                    }
 
-          NavigationLink(destination: FlightBoard(
-            boardName: "Departures",
-            flightData: self.flightInfo.departures()
-          )) {
-            Image(systemName: "airplane")
-              .rotationEffect(.degrees(-45))
-              .foregroundColor(.orange)
-            Text("Departures")
-          }
+                    NavigationLink(destination: FlightBoard(
+                        boardName: "Departures",
+                        flightData: self.flightInfo.departures()
+                    )) {
+                        Image(systemName: "airplane")
+                            .rotationEffect(.degrees(-45))
+                            .foregroundColor(.orange)
+                        Text("Departures")
+                    }
 
-          NavigationLink(destination: AirportAwards()) {
-            Image(systemName: "checkmark.seal.fill")
-              .foregroundColor(.pink)
-            Text("Awards")
-          }
+                    NavigationLink(destination: AirportAwards()) {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundColor(.pink)
+                        Text("Awards")
+                    }
 
-          NavigationLink(destination: FlightTimeline(flights: self
-              .flightInfo)) {
-            Image(systemName: "list.bullet")
-              .foregroundColor(.purple)
-            Text("Flight Timeline")
-          }
+                    NavigationLink(destination: FlightTimeline(flights: self
+                            .flightInfo)) {
+                        Image(systemName: "list.bullet")
+                            .foregroundColor(.purple)
+                        Text("Flight Timeline")
+                    }
 
-          Spacer()
+                    Spacer()
+                }
+                .font(.title)
+                .padding(20)
+            }
+            .navigationBarTitle(Text("Mountain Airport"))
         }
-        .font(.title)
-        .padding(20)
-      }
-      .navigationBarTitle(Text("Mountain Airport"))
     }
-  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+    static var previews: some View {
+        ContentView()
+    }
 }

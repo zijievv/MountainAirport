@@ -29,79 +29,79 @@
 import SwiftUI
 
 class FlightHistory: NSObject {
-  public var day: Int
-  public var flightId: Int
-  public var date: Date
-  public var direction: FlightDirection
-  public var status: FlightStatus
-  public var scheduledTime: Date
-  public var actualTime: Date?
+    public var day: Int
+    public var flightId: Int
+    public var date: Date
+    public var direction: FlightDirection
+    public var status: FlightStatus
+    public var scheduledTime: Date
+    public var actualTime: Date?
 
-  public var shortDate: String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MMM d"
-    return formatter.string(from: date)
-  }
-
-  public var timeDifference: Int {
-    guard let actual = actualTime else { return 60 }
-    let diff = Calendar.current.dateComponents(
-      [.minute],
-      from: scheduledTime,
-      to: actual
-    )
-    return diff.minute!
-  }
-
-  public var flightDelayDescription: String {
-    if status == .cancelled {
-      return "Cancelled"
+    public var shortDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        return formatter.string(from: date)
     }
 
-    if timeDifference < 0 {
-      return "Early by \(-timeDifference) minutes."
-    } else if timeDifference == 0 {
-      return "On time"
-    } else {
-      return "Late by \(timeDifference) minutes."
-    }
-  }
-
-  public var delayColor: Color {
-    if status == .cancelled {
-      return Color(red: 0.5, green: 0, blue: 0)
+    public var timeDifference: Int {
+        guard let actual = actualTime else { return 60 }
+        let diff = Calendar.current.dateComponents(
+            [.minute],
+            from: scheduledTime,
+            to: actual
+        )
+        return diff.minute!
     }
 
-    if timeDifference <= 0 {
-      return Color.green
+    public var flightDelayDescription: String {
+        if status == .cancelled {
+            return "Cancelled"
+        }
+
+        if timeDifference < 0 {
+            return "Early by \(-timeDifference) minutes."
+        } else if timeDifference == 0 {
+            return "On time"
+        } else {
+            return "Late by \(timeDifference) minutes."
+        }
     }
 
-    if timeDifference <= 15 {
-      return Color.yellow
+    public var delayColor: Color {
+        if status == .cancelled {
+            return Color(red: 0.5, green: 0, blue: 0)
+        }
+
+        if timeDifference <= 0 {
+            return Color.green
+        }
+
+        if timeDifference <= 15 {
+            return Color.yellow
+        }
+
+        return Color.red
     }
 
-    return Color.red
-  }
+    public func calcOffset(_ width: CGFloat) -> CGFloat {
+        CGFloat(CGFloat(day - 1) * width)
+    }
 
-  public func calcOffset(_ width: CGFloat) -> CGFloat {
-    CGFloat(CGFloat(day - 1) * width)
-  }
-
-  init(
-    _ day: Int,
-    id: Int,
-    date: Date,
-    direction: FlightDirection,
-    status: FlightStatus,
-    scheduledTime: Date,
-    actualTime: Date?
-  ) {
-    self.day = day
-    flightId = id
-    self.date = date
-    self.direction = direction
-    self.status = status
-    self.scheduledTime = scheduledTime
-    self.actualTime = actualTime
-  }
+    init(
+        _ day: Int,
+        id: Int,
+        date: Date,
+        direction: FlightDirection,
+        status: FlightStatus,
+        scheduledTime: Date,
+        actualTime: Date?
+    ) {
+        self.day = day
+        flightId = id
+        self.date = date
+        self.direction = direction
+        self.status = status
+        self.scheduledTime = scheduledTime
+        self.actualTime = actualTime
+    }
 }

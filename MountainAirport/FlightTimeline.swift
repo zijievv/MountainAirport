@@ -31,114 +31,114 @@ import SwiftUI
 import TimelineTableViewCell
 
 class Coordinator: NSObject {
-  var flightData: [FlightInformation]
+    var flightData: [FlightInformation]
 
-  init(flights: [FlightInformation]) {
-    self.flightData = flights
-  }
+    init(flights: [FlightInformation]) {
+        self.flightData = flights
+    }
 }
 
 extension Coordinator: UITableViewDataSource {
-  func tableView(_ tableView: UITableView,
-                 numberOfRowsInSection section: Int) -> Int {
-    return flightData.count
-  }
-
-  func tableView(
-    _ tableView: UITableView,
-    cellForRowAt indexPath: IndexPath
-  ) -> UITableViewCell {
-    let timeFormatter = DateFormatter()
-    timeFormatter.timeStyle = .short
-    timeFormatter.dateStyle = .none
-
-    let flight = self.flightData[indexPath.row]
-    let scheduledString = timeFormatter.string(from: flight.scheduledTime)
-    let currentString = timeFormatter
-      .string(from: flight.currentTime ?? flight.scheduledTime)
-
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: "TimelineTableViewCell",
-      for: indexPath
-    ) as! TimelineTableViewCell
-
-    let flightInfo = "\(flight.airline) \(flight.number)" +
-      "\(flight.direction == .departure ? "to" : "from")" +
-      " \(flight.otherAirport) - \(flight.flightStatus)"
-
-    cell.descriptionLabel.text = flightInfo
-
-    if flight.status == .cancelled {
-      cell.titleLabel.text = "Cancelled"
-    } else if flight.timeDifference != 0 {
-      let title = "\(scheduledString) Now: \(currentString)"
-      cell.titleLabel.text = title
-    } else {
-      cell.titleLabel.text = "On Time for \(scheduledString)"
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return flightData.count
     }
 
-    cell.titleLabel.textColor = UIColor.black
-    cell.bubbleColor = flight.timelineColor.toUIColor
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = .short
+        timeFormatter.dateStyle = .none
 
-    return cell
-  }
+        let flight = self.flightData[indexPath.row]
+        let scheduledString = timeFormatter.string(from: flight.scheduledTime)
+        let currentString = timeFormatter
+            .string(from: flight.currentTime ?? flight.scheduledTime)
+
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "TimelineTableViewCell",
+            for: indexPath
+        ) as! TimelineTableViewCell
+
+        let flightInfo = "\(flight.airline) \(flight.number)" +
+            "\(flight.direction == .departure ? "to" : "from")" +
+            " \(flight.otherAirport) - \(flight.flightStatus)"
+
+        cell.descriptionLabel.text = flightInfo
+
+        if flight.status == .cancelled {
+            cell.titleLabel.text = "Cancelled"
+        } else if flight.timeDifference != 0 {
+            let title = "\(scheduledString) Now: \(currentString)"
+            cell.titleLabel.text = title
+        } else {
+            cell.titleLabel.text = "On Time for \(scheduledString)"
+        }
+
+        cell.titleLabel.textColor = UIColor.black
+        cell.bubbleColor = flight.timelineColor.toUIColor
+
+        return cell
+    }
 }
 
 struct FlightTimeline: UIViewControllerRepresentable {
-  var flights: [FlightInformation]
+    var flights: [FlightInformation]
 
-  func makeCoordinator() -> Coordinator {
-    Coordinator(flights: flights)
-  }
+    func makeCoordinator() -> Coordinator {
+        Coordinator(flights: flights)
+    }
 
-  func makeUIViewController(context: Context) -> UITableViewController {
-    UITableViewController()
-  }
+    func makeUIViewController(context: Context) -> UITableViewController {
+        UITableViewController()
+    }
 
-  func updateUIViewController(
-    _ viewController: UITableViewController,
-    context: Context
-  ) {
-    viewController.tableView.dataSource = context.coordinator
-    let timelineTableViewCellNib = UINib(
-      nibName: "TimelineTableViewCell",
-      bundle: Bundle.main
-    )
+    func updateUIViewController(
+        _ viewController: UITableViewController,
+        context: Context
+    ) {
+        viewController.tableView.dataSource = context.coordinator
+        let timelineTableViewCellNib = UINib(
+            nibName: "TimelineTableViewCell",
+            bundle: Bundle.main
+        )
 
-    viewController.tableView.register(
-      timelineTableViewCellNib,
-      forCellReuseIdentifier: "TimelineTableViewCell"
-    )
-  }
+        viewController.tableView.register(
+            timelineTableViewCellNib,
+            forCellReuseIdentifier: "TimelineTableViewCell"
+        )
+    }
 }
 
 public extension Color {
-  typealias RGBAlpha = (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat)
+    typealias RGBAlpha = (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat)
 
-  /// Converts `Color` to `UIColor`
-  var toUIColor: UIColor {
-    let components = self.components()
-    return UIColor(
-      red: components.r,
-      green: components.g,
-      blue: components.b,
-      alpha: components.a
-    )
-  }
-
-  private func components() -> RGBAlpha {
-    let scanner = Scanner(string: self.description
-      .trimmingCharacters(in: CharacterSet.alphanumerics.inverted))
-    var hexNumber: UInt64 = 0
-    var r: CGFloat = 0.0, g: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0.0
-
-    let result = scanner.scanHexInt64(&hexNumber)
-    if result {
-      r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
-      g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
-      b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
-      a = CGFloat(hexNumber & 0x000000ff) / 255
+    /// Converts `Color` to `UIColor`
+    var toUIColor: UIColor {
+        let components = self.components()
+        return UIColor(
+            red: components.r,
+            green: components.g,
+            blue: components.b,
+            alpha: components.a
+        )
     }
-    return (r, g, b, a)
-  }
+
+    private func components() -> RGBAlpha {
+        let scanner = Scanner(string: self.description
+            .trimmingCharacters(in: CharacterSet.alphanumerics.inverted))
+        var hexNumber: UInt64 = 0
+        var r: CGFloat = 0.0, g: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0.0
+
+        let result = scanner.scanHexInt64(&hexNumber)
+        if result {
+            r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
+            g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
+            b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
+            a = CGFloat(hexNumber & 0x000000ff) / 255
+        }
+        return (r, g, b, a)
+    }
 }

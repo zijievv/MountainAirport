@@ -29,62 +29,62 @@
 import SwiftUI
 
 struct GridView<Content, T>: View where Content: View {
-  var columns: Int
-  var items: [T]
-  let content: (T) -> Content
+    var columns: Int
+    var items: [T]
+    let content: (T) -> Content
 
-  init(
-    columns: Int,
-    items: [T],
-    @ViewBuilder content: @escaping (T) -> Content
-  ) {
-    self.columns = columns
-    self.items = items
-    self.content = content
-  }
-
-  var body: some View {
-    GeometryReader { geometry in
-      ScrollView {
-        ForEach(0 ..< self.numberRows) { row in
-          HStack {
-            ForEach(0 ..< self.columns) { column in
-              Group {
-                if self.elementFor(row: row, column: column) != nil {
-                  self.content(
-                    self.items[self.elementFor(row: row, column: column)!]
-                  )
-                  .frame(width: geometry.size.width / CGFloat(self.columns),
-                         height: geometry.size.width / CGFloat(self.columns))
-                } else {
-                  Spacer()
-                }
-              }
-            }
-          }
-        }
-      }
+    init(
+        columns: Int,
+        items: [T],
+        @ViewBuilder content: @escaping (T) -> Content
+    ) {
+        self.columns = columns
+        self.items = items
+        self.content = content
     }
-  }
+
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                ForEach(0 ..< self.numberRows) { row in
+                    HStack {
+                        ForEach(0 ..< self.columns) { column in
+                            Group {
+                                if self.elementFor(row: row, column: column) != nil {
+                                    self.content(
+                                        self.items[self.elementFor(row: row, column: column)!]
+                                    )
+                                    .frame(width: geometry.size.width / CGFloat(self.columns),
+                                           height: geometry.size.width / CGFloat(self.columns))
+                                } else {
+                                    Spacer()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 struct GridView_Previews: PreviewProvider {
-  static var previews: some View {
-    GridView(columns: 3, items: [11, 3, 7, 17, 5, 2, 1]) {
-      item in
-      Text("\(item)")
+    static var previews: some View {
+        GridView(columns: 3, items: [11, 3, 7, 17, 5, 2, 1]) {
+            item in
+            Text("\(item)")
+        }
     }
-  }
 }
 
 extension GridView {
-  var numberRows: Int {
-    guard items.count > 0 else { return 0 }
-    return (items.count - 1) / columns + 1
-  }
+    var numberRows: Int {
+        guard items.count > 0 else { return 0 }
+        return (items.count - 1) / columns + 1
+    }
 
-  func elementFor(row: Int, column: Int) -> Int? {
-    let index = row * self.columns + column
-    return index < items.count ? index : nil
-  }
+    func elementFor(row: Int, column: Int) -> Int? {
+        let index = row * self.columns + column
+        return index < items.count ? index : nil
+    }
 }

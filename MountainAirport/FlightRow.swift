@@ -29,35 +29,35 @@
 import SwiftUI
 
 struct FlightRow: View {
-  var flight: FlightInformation
-  /// A `Bool` value indicating whether shows the modal sheet of the flight information.
-  @State private var isPresented = false
+    var flight: FlightInformation
+    /// A `Bool` value indicating whether shows the modal sheet of the flight information.
+    @State private var isPresented = false
 
-  var body: some View {
-    Button(action: {
-      self.isPresented.toggle()
-    }) {
-      HStack {
-        Text("\(flight.airline) \(flight.number)")
-          .frame(width: 120, alignment: .leading)
-        Text(flight.otherAirport)
-          .frame(alignment: .leading)
-        Spacer()
-        Text(flight.flightStatus)
-          .frame(alignment: .trailing)
-      }
-      .sheet(isPresented: $isPresented, onDismiss: {
-        print("Modal dismissed. State now: \(self.isPresented)")
-      }) {
-        FlightBoardInformation(flight: self.flight,
-                               showModal: self.$isPresented)
-      }
+    var body: some View {
+        Button(action: {
+            self.isPresented.toggle()
+        }) {
+            HStack {
+                Text("\(flight.airline) \(flight.number)")
+                    .frame(width: 120, alignment: .leading)
+                Text(flight.otherAirport)
+                    .frame(alignment: .leading)
+                Spacer()
+                Text(flight.flightStatus)
+                    .frame(alignment: .trailing)
+            }
+            .sheet(isPresented: $isPresented, onDismiss: {
+                print("Modal dismissed. State now: \(self.isPresented)")
+            }) {
+                FlightBoardInformation(flight: self.flight,
+                                       showModal: self.$isPresented)
+            }
+        }
     }
-  }
 }
 
 struct FlightRow_Previews: PreviewProvider {
-  static var previews: some View {
-    FlightRow(flight: FlightInformation.generateFlight())
-  }
+    static var previews: some View {
+        FlightRow(flight: FlightInformation.generateFlight())
+    }
 }
