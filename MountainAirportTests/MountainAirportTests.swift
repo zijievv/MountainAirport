@@ -93,6 +93,9 @@ class MountainAirportTests: XCTestCase {
         status: .delayed, gate: "fg7"
     )
 
+    static var flights = [flight1, flight2, flight3, flight4,
+                          flight5, flight6, flight7]
+
     func testAwardInformation() throws {
         let ai1 = AwardInformation(awardView: AnyView(Text("ai1")),
                                    title: "ai1",
@@ -149,6 +152,14 @@ class MountainAirportTests: XCTestCase {
         // MARK: Methods
         XCTAssertTrue(Self.flight4.isRebookAvailable())
         XCTAssertTrue(Self.flight7.isCheckInAvailable())
+    }
+
+    func testArrayFlightInformationExtension() throws {
+        XCTAssertEqual(Self.flights.arrivals(), [Self.flight2, Self.flight5])
+        let departures: [FlightInformation] = [
+            Self.flight1, Self.flight3, Self.flight4, Self.flight6, Self.flight7,
+        ]
+        XCTAssertEqual(Self.flights.departures(), departures)
     }
 }
 
