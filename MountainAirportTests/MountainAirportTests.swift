@@ -46,6 +46,12 @@ class MountainAirportTests: XCTestCase {
         return formatter
     }()
 
+    static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        return formatter
+    }()
+
     static let now = Date()
     static let tomorrow = Date(timeInterval: 1.0.days, since: now)
     static let yesterday = Date(timeInterval: -1.0.days, since: now)
@@ -160,6 +166,35 @@ class MountainAirportTests: XCTestCase {
             Self.flight1, Self.flight3, Self.flight4, Self.flight6, Self.flight7,
         ]
         XCTAssertEqual(Self.flights.departures(), departures)
+    }
+
+    func testFlightHistory() throws {
+        let fh1 = FlightHistory(
+            3, id: 1, date: Self.now, direction: .departure, status: .landed,
+            scheduledTime: Self.yesterday, actualTime: Self.now
+        )
+
+        let fh2 = FlightHistory(
+            2, id: 2, date: Self.now, direction: .arrival, status: .cancelled,
+            scheduledTime: Self.yesterday, actualTime: nil
+        )
+
+        // shortDate
+        XCTAssertEqual(fh1.shortDate, Self.shortDateFormatter.string(from: fh1.date))
+        // timeDifference
+        XCTAssertEqual(fh2.timeDifference, 60)
+        let diff = Calendar.current.dateComponents([.minute],
+                                                   from: fh1.scheduledTime,
+                                                   to: fh1.actualTime!)
+        XCTAssertEqual(fh1.timeDifference, diff.minute!)
+        // flightDelayDescription
+        XCTAssertEqual(fh2.flightDelayDescription, "Cancelled")
+        XCTAssertEqual(fh1.flightDelayDescription, "Late by \(diff.minute!) minutes.")
+        // delayColor
+        XCTAssertEqual(fh2.delayColor, Color(red: 0.5, green: 0, blue: 0))
+        XCTAssertEqual(fh1.delayColor, .red)
+        // calcOffset(_: CGFloat) -> CGFloat
+        XCTAssertEqual(fh1.calcOffset(1), CGFloat(fh1.day - 1) * 1.0)
     }
 }
 
