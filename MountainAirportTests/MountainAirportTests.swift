@@ -39,6 +39,60 @@ class MountainAirportTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    static let noneDateShortTimeDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter
+    }()
+
+    static let now = Date()
+    static let tomorrow = Date(timeInterval: 1.0.days, since: now)
+    static let yesterday = Date(timeInterval: -1.0.days, since: now)
+    static let minuteAgo = Date(timeInterval: -1.0.minutes, since: now)
+
+    static let flight1 = FlightInformation(
+        recordId: 1, airline: "fa1", number: "fn1", connection: "fc1",
+        scheduledTime: tomorrow, currentTime: now, direction: .departure,
+        status: .ontime, gate: "fg1"
+    )
+
+    static let flight2 = FlightInformation(
+        recordId: 2, airline: "fa2", number: "fn2", connection: "fc2",
+        scheduledTime: now, currentTime: nil, direction: .arrival,
+        status: .delayed, gate: "fg2"
+    )
+
+    static let flight3 = FlightInformation(
+        recordId: 3, airline: "fa3", number: "fn3", connection: "fc3",
+        scheduledTime: yesterday, currentTime: minuteAgo, direction: .departure,
+        status: .landed, gate: "fg3"
+    )
+
+    static let flight4 = FlightInformation(
+        recordId: 4, airline: "fa4", number: "fn4", connection: "fc4",
+        scheduledTime: now, currentTime: minuteAgo, direction: .departure,
+        status: .cancelled, gate: "fg4"
+    )
+
+    static let flight5 = FlightInformation(
+        recordId: 5, airline: "fa5", number: "fn5", connection: "fc5",
+        scheduledTime: minuteAgo, currentTime: now, direction: .arrival,
+        status: .departed, gate: "fg5"
+    )
+
+    static let flight6 = FlightInformation(
+        recordId: 6, airline: "fa6", number: "fn6", connection: "fc6",
+        scheduledTime: now, currentTime: minuteAgo, direction: .departure,
+        status: .departed, gate: "fg6"
+    )
+
+    static let flight7 = FlightInformation(
+        recordId: 7, airline: "fa7", number: "fn7", connection: "fc7",
+        scheduledTime: tomorrow, currentTime: tomorrow, direction: .departure,
+        status: .delayed, gate: "fg7"
+    )
+
     func testAwardInformation() throws {
         let ai1 = AwardInformation(awardView: AnyView(Text("ai1")),
                                    title: "ai1",
@@ -66,84 +120,35 @@ class MountainAirportTests: XCTestCase {
     }
 
     func testFlightInformation() throws {
-        let noneDateShortTimeDateFormatter = DateFormatter()
-        noneDateShortTimeDateFormatter.dateStyle = .none
-        noneDateShortTimeDateFormatter.timeStyle = .short
-
-        let now = Date()
-        let tomorrow = Date(timeInterval: 1.0.days, since: now)
-        let yesterday = Date(timeInterval: -1.0.days, since: now)
-        let minuteAgo = Date(timeInterval: -1.0.minutes, since: now)
-
-        let flight1 = FlightInformation(
-            recordId: 1, airline: "fa1", number: "fn1", connection: "fc1",
-            scheduledTime: tomorrow, currentTime: now, direction: .departure,
-            status: .ontime, gate: "fg1"
-        )
-
-        let flight2 = FlightInformation(
-            recordId: 2, airline: "fa2", number: "fn2", connection: "fc2",
-            scheduledTime: now, currentTime: nil, direction: .arrival,
-            status: .delayed, gate: "fg2"
-        )
-
-        let flight3 = FlightInformation(
-            recordId: 3, airline: "fa3", number: "fn3", connection: "fc3",
-            scheduledTime: yesterday, currentTime: minuteAgo, direction: .departure,
-            status: .landed, gate: "fg3"
-        )
-
-        let flight4 = FlightInformation(
-            recordId: 4, airline: "fa4", number: "fn4", connection: "fc4",
-            scheduledTime: now, currentTime: minuteAgo, direction: .departure,
-            status: .cancelled, gate: "fg4"
-        )
-
-        let flight5 = FlightInformation(
-            recordId: 5, airline: "fa5", number: "fn5", connection: "fc5",
-            scheduledTime: minuteAgo, currentTime: now, direction: .arrival,
-            status: .departed, gate: "fg5"
-        )
-
-        let flight6 = FlightInformation(
-            recordId: 6, airline: "fa6", number: "fn6", connection: "fc6",
-            scheduledTime: now, currentTime: minuteAgo, direction: .departure,
-            status: .departed, gate: "fg6"
-        )
-
-        let flight7 = FlightInformation(
-            recordId: 7, airline: "fa7", number: "fn7", connection: "fc7",
-            scheduledTime: tomorrow, currentTime: tomorrow, direction: .departure,
-            status: .delayed, gate: "fg7"
-        )
-
         // MARK: Computed properties
         // scheduledTimeString
-        XCTAssertEqual(flight1.scheduledTimeString,
-                       noneDateShortTimeDateFormatter.string(from: tomorrow))
-        // currentTimeString
-        XCTAssertEqual(flight1.currentTimeString,
-                       noneDateShortTimeDateFormatter.string(from: now))
-        XCTAssertEqual(flight2.currentTimeString, "N/A")
+        XCTAssertEqual(
+            Self.flight1.scheduledTimeString,
+            Self.noneDateShortTimeDateFormatter.string(from: Self.tomorrow)
+        )
+        // currentTimeSSelf.tring
+        XCTAssertEqual(Self.flight1.currentTimeString,
+                       Self.noneDateShortTimeDateFormatter.string(from: Self.now))
+        XCTAssertEqual(Self.flight2.currentTimeString, "N/A")
         // flightStatus
-        XCTAssertEqual(flight4.flightStatus, FlightStatus.cancelled.rawValue)
-        XCTAssertEqual(flight5.flightStatus, "Arrived")
-        XCTAssertEqual(flight3.flightStatus, "Departed")
-        XCTAssertEqual(flight2.flightStatus, FlightStatus.delayed.rawValue)
+        XCTAssertEqual(Self.flight4.flightStatus, FlightStatus.cancelled.rawValue)
+        XCTAssertEqual(Self.flight5.flightStatus, "Arrived")
+        XCTAssertEqual(Self.flight3.flightStatus, "Departed")
+        XCTAssertEqual(Self.flight2.flightStatus, FlightStatus.delayed.rawValue)
         // timeDifference
-        XCTAssertEqual(flight2.timeDifference, 60)
+        XCTAssertEqual(Self.flight2.timeDifference, 60)
         let diff = Calendar.current.dateComponents([.minute],
-                                                   from: flight1.scheduledTime,
-                                                   to: flight1.currentTime!)
-        XCTAssertEqual(flight1.timeDifference, diff.minute!)
+                                                   from: Self.flight1.scheduledTime,
+                                                   to: Self.flight1.currentTime!)
+        XCTAssertEqual(Self.flight1.timeDifference, diff.minute!)
         // timelineColor
-        XCTAssertEqual(flight4.timelineColor, Color.red)
-        XCTAssertEqual(flight6.timelineColor, .green)
-        XCTAssertEqual(flight5.timelineColor, .yellow)
-        XCTAssertEqual(flight2.timelineColor, .purple)
+        XCTAssertEqual(Self.flight4.timelineColor, Color.red)
+        XCTAssertEqual(Self.flight6.timelineColor, .green)
+        XCTAssertEqual(Self.flight5.timelineColor, .yellow)
+        XCTAssertEqual(Self.flight2.timelineColor, .purple)
         // MARK: Methods
-        XCTAssertTrue(flight4.isRebookAvailable())
-        XCTAssertTrue(flight7.isCheckInAvailable())
+        XCTAssertTrue(Self.flight4.isRebookAvailable())
+        XCTAssertTrue(Self.flight7.isCheckInAvailable())
     }
 }
 
