@@ -75,10 +75,10 @@ class FlightInformation: NSObject {
             return status.rawValue
         }
 
-        if direction == .arrival, now > currentTime! {
+        if direction == .arrival, let curr = currentTime, now > curr {
             return "Arrived"
         }
-        if direction == .departure, now > currentTime! {
+        if direction == .departure, let curr = currentTime, now > curr {
             return "Departed"
         }
 
@@ -155,6 +155,7 @@ class FlightInformation: NSObject {
         return flights
     }
 
+#if DEBUG
     /// Generates test data for one flight.
     static func generateFlight() -> FlightInformation {
         generateFlight(Int.random(in: 1 ... 30))
@@ -284,6 +285,7 @@ class FlightInformation: NSObject {
             actualTime: newTime
         )
     }
+#endif
 }
 
 extension FlightInformation: Identifiable {}
